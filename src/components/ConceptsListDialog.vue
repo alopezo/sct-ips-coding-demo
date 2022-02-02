@@ -46,14 +46,24 @@
                                 <v-list-item-subtitle>SCTID: {{ item.id }}</v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item v-if="total > items.length">
+                        <v-list-item v-if="total > items.length && !loading">
                             <v-list-item-content>
-                                <v-list-item-subtitle class="text-center">Load more...</v-list-item-subtitle>
+                                <v-list-item-subtitle class="text-center" @click="getData()">
+                                    {{ items.length }} of {{ total }} Load more...
+                                    </v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item v-if="total == items.length">
+                        <v-list-item v-if="total == items.length && !loading">
                             <v-list-item-content>
                                 <v-list-item-subtitle class="text-center">All results loaded ({{ total }})</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item v-if="loading">
+                            <v-list-item-content>
+                                <v-progress-linear
+                                indeterminate
+                                color="cyan"
+                                ></v-progress-linear>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-item-group>
@@ -85,19 +95,24 @@ pre {
             }
         },
         mounted() {
-        var queryString = `${this.$snowstormBase}/${this.$snowstormBranch}/concepts?activeFilter=true&
-                            termActive=true&language=en&offset=0&limit=50&ecl=${encodeURIComponent(this.binding.ecl)}`
-        axios
-            .get(queryString)
-            .then(response => {
-                // this.items = response.data.items.map( e => e.fsn.term );
-                this.items = response.data.items;
-                this.total = response.data.total;
-            })
+            this.getData();
         },
         methods: {
             copy() {
                 navigator.clipboard.writeText(this.binding.ecl.replace(/\s\s+/g, ' '));
+            },
+            getData() {
+                this.loading = true;
+                var queryString = `${this.$snowstormBase}/${this.$snowstormBranch}/concepts?activeFilter=true&
+                                    termActive=true&language=en&offset=${this.items.length}&limit=50&ecl=${encodeURIComponent(this.binding.ecl)}`
+                axios
+                    .get(queryString)
+                    .then(response => {
+                        // this.items = response.data.items.map( e => e.fsn.term );
+                        this.items = this.items.concat(response.data.items);
+                        this.total = response.data.total;
+                        this.loading = false;
+                    })
             }
         }
     }

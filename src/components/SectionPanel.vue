@@ -16,6 +16,7 @@
           <v-chip class="text-capitalize" color="amber darken-1" text-color="white">{{ 'Demo UI: ' + binding.type }}</v-chip>
           <ConceptsListDialog :binding='binding' />
           <AutocompleteBinding :binding='binding' v-if="binding.type == 'autocomplete'"/>
+          <AutocompleteWithRefset :binding='binding' v-if="binding.type == 'autocompleterefset'"/>
           <DropdownBinding :binding='binding' v-if="binding.type == 'dropdown'"/>
           <RadiobuttonBinding :binding='binding' v-if="binding.type == 'radiobutton'"/>
         </v-col>
@@ -25,6 +26,7 @@
 </template>
 <script>
   import AutocompleteBinding from './AutocompleteBinding.vue'
+  import AutocompleteWithRefset from './AutocompleteWithRefset.vue'
   import DropdownBinding from './DropdownBinding.vue'
   import RadiobuttonBinding from './RadiobuttonBinding.vue'
   import ConceptsListDialog from './ConceptsListDialog.vue'
@@ -32,6 +34,7 @@
   export default {
     components: {
       AutocompleteBinding,
+      AutocompleteWithRefset,
       DropdownBinding,
       RadiobuttonBinding,
       ConceptsListDialog
