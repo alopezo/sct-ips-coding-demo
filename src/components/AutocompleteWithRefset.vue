@@ -87,7 +87,6 @@
       mapToRefset() {
         this.maps = null;
         this.mapping = true;
-        // (>763802009 |Micturition induced epilepsy (disorder)| AND ^816080008 |International Patient Summary|) MINUS >(>763802009 |Micturition induced epilepsy (disorder)| AND (^816080008 |International Patient Summary|))
         var ancestorsEcl = `(>>${this.binding.value.conceptId}) AND (^${this.binding.refset})`;
         var mapEcl = `(${ancestorsEcl}) MINUS >(${ancestorsEcl})`;
         var queryString = `${this.$snowstormBase}/${this.$snowstormBranch}/concepts?activeFilter=true&

@@ -38,7 +38,9 @@
     methods: {
       querySelections (v) {
         this.loading = true;
-        var queryString = `${this.$snowstormBase}/${this.$snowstormBranch}/concepts?activeFilter=true&term=${v}&
+        var base = this.binding.base || this.$snowstormBase
+        var branch = this.binding.branch || this.$snowstormBranch
+        var queryString = `${base}/${branch}/concepts?activeFilter=true&term=${v}&
                             termActive=true&language=en&offset=0&limit=50&ecl=${encodeURIComponent(this.binding.ecl)}`
         axios
           .get(queryString)

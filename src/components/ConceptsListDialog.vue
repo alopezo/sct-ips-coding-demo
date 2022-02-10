@@ -19,6 +19,9 @@
             <v-card-title class="text-h5 grey lighten-2">
             {{ binding.title }}
             </v-card-title>
+             <v-card-subtitle class="text-h6 grey lighten-2" v-if="binding.fieldTitle">
+            {{ binding.fieldTitle }}
+            </v-card-subtitle>
 
             <v-card-text style="height: 800px;">
                 <h4 class="my-5">ECL</h4>
@@ -31,6 +34,16 @@
                     <v-icon>mdi-content-copy</v-icon>
                 </v-btn>
                 <pre class="mx-4">{{ binding.ecl }}</pre>
+                <h4 class="my-5">API Call</h4>
+                <v-btn
+                    icon
+                    color="primary"
+                    style="float: right;"
+                    @click="openUrl"
+                >
+                    <v-icon>mdi-open-in-new</v-icon>
+                </v-btn>
+                <pre class="mx-4 text-small">{{ queryString.replace(/\s\s+/g, ' ').substring(0, 200) + '...' }}</pre>
                 <h4 class="my-5">MEMBERS  ({{ total }})</h4>
                 <v-list dense>
                     <v-list-item-group
@@ -87,7 +100,8 @@ pre {
             items: [],
             total: 0,
             selectedItem: 0,
-            dialog: false
+            dialog: false,
+            queryString: ''
         }),
         props: {
             binding: {
@@ -101,12 +115,17 @@ pre {
             copy() {
                 navigator.clipboard.writeText(this.binding.ecl.replace(/\s\s+/g, ' '));
             },
+            openUrl() {
+                window.open(this.queryString.replace(/\s\s+/g, ' '), '_blank').focus();
+            },
             getData() {
                 this.loading = true;
-                var queryString = `${this.$snowstormBase}/${this.$snowstormBranch}/concepts?activeFilter=true&
-                                    termActive=true&language=en&offset=${this.items.length}&limit=50&ecl=${encodeURIComponent(this.binding.ecl)}`
+                var base = this.binding.base || this.$snowstormBase
+                var branch = this.binding.branch || this.$snowstormBranch
+                this.queryString = `${base}/${branch}/concepts?activeFilter=true&
+                            termActive=true&language=en&offset=0&limit=50&ecl=${encodeURIComponent(this.binding.ecl)}`
                 axios
-                    .get(queryString)
+                    .get(this.queryString)
                     .then(response => {
                         // this.items = response.data.items.map( e => e.fsn.term );
                         this.items = this.items.concat(response.data.items);
