@@ -3,6 +3,6 @@ module.exports = {
     'vuetify'
   ],
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/coding-demonstrator/'
+    ? '/sct-ips-coding-demonstrator/'
     : '/'
 }

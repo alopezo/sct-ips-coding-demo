@@ -144,25 +144,24 @@ export default {
               (^816080008 |International Patient Summary|)`,
               value: '',
               note: 'IPS Allergy intolerance substance condition GPS value set. This value set includes the codes from the SNOMED International Global Patient Set (GPS) subset of SNOMED CT that are included in: all descendants of 762766007 | Edible substance (substance)|; all descendants of 406455002 | Allergen class (substance) |; all descendants of 425620007 | Metal (substance)|; all descendants of 373873005 | Pharmaceutical / biologic product (product)|; all descendants of 410942007 |Drug or medicament (substance)|. The current value set contains concepts from the September 2019 release of the GPS, which is based on the July 2019 SNOMED CT International Edition release.'
-            },
-            // 'IPS-ALLERGIES-AllergyintolerancesubstanceconditionGPS-IAA' : {
-            //   title: 'Allergy intolerance substance condition IAA Server',
-            //   type: 'autocomplete',
-            //   ecl: `(< 762766007 | Edible substance (substance)| OR
-            //   < 425620007 | Metal (substance)| OR 
-            //   < 410942007 |Drug or medicament (substance)| OR 
-            //   < 373873005 |Pharmaceutical / biologic product (product)|)`,
-            //   value: '',
-            //   note: 'IPS Allergy intolerance substance condition GPS value set. This value set includes the codes from the SNOMED International Global Patient Set (GPS) subset of SNOMED CT that are included in: all descendants of 762766007 | Edible substance (substance)|; all descendants of 406455002 | Allergen class (substance) |; all descendants of 425620007 | Metal (substance)|; all descendants of 373873005 | Pharmaceutical / biologic product (product)|; all descendants of 410942007 |Drug or medicament (substance)|. The current value set contains concepts from the September 2019 release of the GPS, which is based on the July 2019 SNOMED CT International Edition release.',
-            //   base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
-            //   branch: 'SNOMEDCT-IPS-TEST2'
-            // }
+            }
           }
         },
         'IPS-PROBLEMS': {
           title: 'Problem List',
           note: 'The IPS problem section lists and describes clinical problems or conditions currently being monitored for the patient.',
           bindings: {
+            'IPS-PROBLEMS-CoreProblemListFindingSituationEventIaa' : {
+              title: 'CORE Problem List Finding/Situation/Event (IPS Terminology)',
+              type: 'autocomplete',
+              ecl: `(< 404684003 |Clinical finding (finding)| OR 
+              < 272379006 |Event (event)| OR 
+              (< 243796009 |Situation with explicit context (situation)| : [0..0] 363589002 |Associated procedure (attribute)| = *))`,
+              value: '',
+              base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
+              branch: 'MAIN/SNOMEDCT-IPS-TEST2',
+              note: 'Searching problem list codes using the IPS Terminology (Sub-ontology)'
+            },
             'IPS-PROBLEMS-CoreProblemListFindingSituationEventGpsUvIps' : {
               title: 'CORE Problem List Finding/Situation/Event (IPS Refset)',
               type: 'autocomplete',
@@ -174,7 +173,7 @@ export default {
               note: 'Searching problem list codes constraining to the IPS Refset, in a complete edition of SNOMED CT'
             },
             'IPS-PROBLEMS-CoreProblemListFindingSituationEventAllSNOMED' : {
-              title: 'CORE Problem List Finding/Situation/Event (All SNOMED)',
+              title: 'CORE Problem List Finding/Situation/Event (All SNOMED CT)',
               type: 'autocompleterefset',
               ecl: `(< 404684003 |Clinical finding (finding)| OR 
               < 272379006 |Event (event)| OR 
@@ -182,23 +181,12 @@ export default {
               refset: '816080008 |International Patient Summary|',
               value: '',
               note: 'Searching problem list codes in a complete edition of SNOMED CT, then mapping to select the proximal ancestors that are a member of the IPS Refset'
-            },
-            'IPS-PROBLEMS-CoreProblemListFindingSituationEventIaa' : {
-              title: 'CORE Problem List Finding/Situation/Event (IPS Terminology)',
-              type: 'autocomplete',
-              ecl: `(< 404684003 |Clinical finding (finding)| OR 
-              < 272379006 |Event (event)| OR 
-              (< 243796009 |Situation with explicit context (situation)| : [0..0] 363589002 |Associated procedure (attribute)| = *))`,
-              value: '',
-              base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
-              branch: 'MAIN/SNOMEDCT-IPS-TEST2',
-              note: 'Searching problem list codes using the IPS Terminology (Sub-ontology)'
             }
           }
         },
         'IPS-PROCEDURES': {
           title: 'Procedures',
-          note: 'The IPS procedures....',
+          note: 'The IPS procedures...',
           bindings: {
             'IPS-PROCEDURES-procedures' : {
               title: 'Procedures',
