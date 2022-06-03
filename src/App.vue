@@ -134,8 +134,20 @@ export default {
           title: 'Allergies and Intolerances',
           note: 'This section documents the relevant allergies or intolerances (conditions) for a patient, describing the kind of reaction (e.g. rash, anaphylaxis,..); preferably the agents that cause it; and optionally the criticality and the certainty of the allergy. At a minimum, it should list currently active and any relevant historical allergies and adverse reactions. If no information about allergies is available, or if no allergies are known this should be clearly documented in the section.',
           bindings: {
+            'IPS-ALLERGIES-AllergyintolerancesubstanceconditionIaa' : {
+              title: 'Allergy intolerance substance (IPS Terminology)',
+              type: 'autocomplete',
+              ecl: `< 762766007 | Edible substance (substance)| OR
+              < 425620007 | Metal (substance)| OR 
+              < 410942007 |Drug or medicament (substance)| OR 
+              < 373873005 |Pharmaceutical / biologic product (product)|`,
+              value: '',
+              base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
+              branch: 'MAIN/SNOMEDCT-IPS-TEST2',
+              note: 'Searching Allergy intolerance substance codes using the IPS Terminology (Sub-ontology)'
+            },
             'IPS-ALLERGIES-AllergyintolerancesubstanceconditionGPS' : {
-              title: 'Allergy intolerance substance condition (GPS) - IPS',
+              title: 'Allergy intolerance substance (IPS Refset)',
               type: 'autocomplete',
               ecl: `(< 762766007 | Edible substance (substance)| OR
               < 425620007 | Metal (substance)| OR 
@@ -144,6 +156,17 @@ export default {
               (^816080008 |International Patient Summary|)`,
               value: '',
               note: 'IPS Allergy intolerance substance condition GPS value set. This value set includes the codes from the SNOMED International Global Patient Set (GPS) subset of SNOMED CT that are included in: all descendants of 762766007 | Edible substance (substance)|; all descendants of 406455002 | Allergen class (substance) |; all descendants of 425620007 | Metal (substance)|; all descendants of 373873005 | Pharmaceutical / biologic product (product)|; all descendants of 410942007 |Drug or medicament (substance)|. The current value set contains concepts from the September 2019 release of the GPS, which is based on the July 2019 SNOMED CT International Edition release.'
+            },
+            'IPS-ALLERGIES-AllergyintolerancesubstanceconditionALL' : {
+              title: 'Allergy intolerance substance (All SNOMED CT)',
+              type: 'autocompleterefset',
+              ecl: `< 762766007 | Edible substance (substance)| OR
+              < 425620007 | Metal (substance)| OR 
+              < 410942007 |Drug or medicament (substance)| OR 
+              < 373873005 |Pharmaceutical / biologic product (product)|`,
+              value: '',
+              refset: '816080008 |International Patient Summary|',
+              note: 'Searching Allergy intolerance substance codes using the complete edition of SNOMED CT'
             }
           }
         },
@@ -154,9 +177,9 @@ export default {
             'IPS-PROBLEMS-CoreProblemListFindingSituationEventIaa' : {
               title: 'CORE Problem List Finding/Situation/Event (IPS Terminology)',
               type: 'autocomplete',
-              ecl: `(< 404684003 |Clinical finding (finding)| OR 
+              ecl: `< 404684003 |Clinical finding (finding)| OR 
               < 272379006 |Event (event)| OR 
-              (< 243796009 |Situation with explicit context (situation)| : [0..0] 363589002 |Associated procedure (attribute)| = *))`,
+              (< 243796009 |Situation with explicit context (situation)| : [0..0] 363589002 |Associated procedure (attribute)| = *)`,
               value: '',
               base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
               branch: 'MAIN/SNOMEDCT-IPS-TEST2',
@@ -175,9 +198,9 @@ export default {
             'IPS-PROBLEMS-CoreProblemListFindingSituationEventAllSNOMED' : {
               title: 'CORE Problem List Finding/Situation/Event (All SNOMED CT)',
               type: 'autocompleterefset',
-              ecl: `(< 404684003 |Clinical finding (finding)| OR 
+              ecl: `< 404684003 |Clinical finding (finding)| OR 
               < 272379006 |Event (event)| OR 
-              (< 243796009 |Situation with explicit context (situation)| : [0..0] 363589002 |Associated procedure (attribute)| = *))`,
+              (< 243796009 |Situation with explicit context (situation)| : [0..0] 363589002 |Associated procedure (attribute)| = *)`,
               refset: '816080008 |International Patient Summary|',
               value: '',
               note: 'Searching problem list codes in a complete edition of SNOMED CT, then mapping to select the proximal ancestors that are a member of the IPS Refset'
@@ -188,20 +211,53 @@ export default {
           title: 'Procedures',
           note: 'The IPS procedures...',
           bindings: {
-            'IPS-PROCEDURES-procedures' : {
-              title: 'Procedures',
+            'IPS-PROCEDURES-proceduresIaa' : {
+              title: 'Procedures (IPS Terminology)',
               type: 'autocomplete',
-              ecl: `((< 71388002 |Procedure (procedure)|)
-              MINUS (< 14734007 |Administrative procedure (procedure)|
-              OR < 59524001 |Blood bank procedure (procedure)|
-              OR < 389067005 |Community health procedure (procedure)|
-              OR < 442006003 |Determination of information related to transfusion (procedure)|
-              OR < 225288009 |Environmental care procedure (procedure)|
-              OR < 308335008 |Patient encounter procedure (procedure)|
-              OR < 710135002 |Promotion (procedure)|
-              OR < 389084004 |Staff related procedure (procedure)|)) AND 
-              (^816080008 |International Patient Summary|) `,
+              ecl: `(< 71388002 |Procedure (procedure)|)`,
+              // MINUS (< 14734007 |Administrative procedure (procedure)|
+              // OR < 59524001 |Blood bank procedure (procedure)|
+              // OR < 389067005 |Community health procedure (procedure)|
+              // OR < 442006003 |Determination of information related to transfusion (procedure)|
+              // OR < 225288009 |Environmental care procedure (procedure)|
+              // OR < 308335008 |Patient encounter procedure (procedure)|
+              // OR < 710135002 |Promotion (procedure)|
+              // OR < 389084004 |Staff related procedure (procedure)|)`,
               value: '',
+              base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
+              branch: 'MAIN/SNOMEDCT-IPS-TEST2',
+              note: 'Searching procedure codes using the IPS Terminology (Sub-ontology)'
+            },
+            'IPS-PROCEDURES-procedures' : {
+              title: 'Procedures  (IPS Refset)',
+              type: 'autocomplete',
+              ecl: `(< 71388002 |Procedure (procedure)|)
+              AND (^816080008 |International Patient Summary|) `,
+              // MINUS (< 14734007 |Administrative procedure (procedure)|
+              // OR < 59524001 |Blood bank procedure (procedure)|
+              // OR < 389067005 |Community health procedure (procedure)|
+              // OR < 442006003 |Determination of information related to transfusion (procedure)|
+              // OR < 225288009 |Environmental care procedure (procedure)|
+              // OR < 308335008 |Patient encounter procedure (procedure)|
+              // OR < 710135002 |Promotion (procedure)|
+              // OR < 389084004 |Staff related procedure (procedure)|)) AND 
+              value: '',
+              note: 'This value set includes codes from SNOMED Clinical Terms®: all descendants of 71388002 | Procedure (procedure)|, excluding [all subtypes of 14734007, all subtypes of 59524001, all subtypes of 389067005, all subtypes of 442006003, all subtypes of 225288009, all subtypes of 308335008, all subtypes of 710135002, all subtypes of 389084004].'
+            },
+            'IPS-PROCEDURES-proceduresAll' : {
+              title: 'Procedures  (All SNOMED CT)',
+              type: 'autocompleterefset',
+              ecl: `< 71388002 |Procedure (procedure)|`,
+              // MINUS (< 14734007 |Administrative procedure (procedure)|
+              // OR < 59524001 |Blood bank procedure (procedure)|
+              // OR < 389067005 |Community health procedure (procedure)|
+              // OR < 442006003 |Determination of information related to transfusion (procedure)|
+              // OR < 225288009 |Environmental care procedure (procedure)|
+              // OR < 308335008 |Patient encounter procedure (procedure)|
+              // OR < 710135002 |Promotion (procedure)|
+              // OR < 389084004 |Staff related procedure (procedure)|)) AND 
+              value: '',
+              refset: '816080008 |International Patient Summary|',
               note: 'This value set includes codes from SNOMED Clinical Terms®: all descendants of 71388002 | Procedure (procedure)|, excluding [all subtypes of 14734007, all subtypes of 59524001, all subtypes of 389067005, all subtypes of 442006003, all subtypes of 225288009, all subtypes of 308335008, all subtypes of 710135002, all subtypes of 389084004].'
             }
           }
