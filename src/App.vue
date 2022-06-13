@@ -15,7 +15,7 @@
           width="200"
           height="60"
         />
-        <h1>IPS Terminology Coding Guide</h1>
+        <h1>IPS Terminology Implementation Demonstration</h1>
       </div>
       <v-spacer></v-spacer>
       <v-btn color="purple lighten-1">
@@ -142,8 +142,8 @@ export default {
               < 410942007 |Drug or medicament (substance)| OR 
               < 373873005 |Pharmaceutical / biologic product (product)|`,
               value: '',
-              base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
-              branch: 'MAIN/SNOMEDCT-IPS-TEST2',
+              base: 'https://ips-browser.snomedtools.org/snowstorm/snomed-ct',
+              branch: 'MAIN/2022-04-30',
               note: 'Searching Allergy intolerance substance codes using the IPS Terminology (Sub-ontology)'
             },
             'IPS-ALLERGIES-AllergyintolerancesubstanceconditionGPS' : {
@@ -181,8 +181,8 @@ export default {
               < 272379006 |Event (event)| OR 
               (< 243796009 |Situation with explicit context (situation)| : [0..0] 363589002 |Associated procedure (attribute)| = *)`,
               value: '',
-              base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
-              branch: 'MAIN/SNOMEDCT-IPS-TEST2',
+              base: 'https://ips-browser.snomedtools.org/snowstorm/snomed-ct',
+              branch: 'MAIN/2022-04-30',
               note: 'Searching problem list codes using the IPS Terminology (Sub-ontology)'
             },
             'IPS-PROBLEMS-CoreProblemListFindingSituationEventGpsUvIps' : {
@@ -224,8 +224,8 @@ export default {
               // OR < 710135002 |Promotion (procedure)|
               // OR < 389084004 |Staff related procedure (procedure)|)`,
               value: '',
-              base: 'https://iaa.snomed.tools/snowstorm/snomed-ct',
-              branch: 'MAIN/SNOMEDCT-IPS-TEST2',
+              base: 'https://ips-browser.snomedtools.org/snowstorm/snomed-ct',
+              branch: 'MAIN/2022-04-30',
               note: 'Searching procedure codes using the IPS Terminology (Sub-ontology)'
             },
             'IPS-PROCEDURES-procedures' : {
